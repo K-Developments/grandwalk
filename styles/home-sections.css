@@ -1,0 +1,492 @@
+/*discover island hopes travels*/
+
+
+.story-content{
+  grid-area: left;
+}
+
+.story-image{
+  grid-area: right;
+}
+ .story-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: center;
+  grid-template-areas: "right left";
+}
+ 
+ 
+@media (max-width: 768px) {
+  .story-container {
+    grid-template-columns: 1fr !important;
+    grid-template-areas:
+      "right"
+      "left";
+  }
+
+  .story-timeline{
+    display:none;
+  }
+  .nav-logo{
+    width:200px;
+  }
+ 
+}
+.stat-label{
+  text-transform:uppercase;
+}
+
+h3{
+  text-transform:uppercase;
+}
+
+ 
+ 
+ /* Top Destinations Styles */
+/* Top Destinations Styles */
+.destination-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 10px;
+  width: 100%;
+  max-height: 550px;
+}
+
+.destination-item {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  border-radius: 2px;
+}
+
+.destination-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.25);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 20px;
+  transition: all 0.3s ease;
+  z-index: 1;
+}
+
+.overlay h2,
+.overlay p,
+.overlay a {
+  margin: 0;
+  transition: all 0.3s ease;
+}
+
+.overlay h2 {
+  font-size: 1.7rem;
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.overlay p {
+  font-size: 1rem;
+  margin-top: 10px;
+  transform: translateY(20px);
+  opacity: 0;
+}
+
+
+
+.destination-item:hover img {
+  transform: scale(1.1);
+}
+
+.destination-item:hover .overlay {
+  background: rgba(0, 0, 0, 0.6);
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  text-align: center;
+}
+
+.destination-item:hover .overlay h2 {
+  transform: translateY(-10px);
+  opacity: 1;
+}
+
+.destination-item:hover .overlay p {
+  transform: translateY(0);
+  opacity: 1;
+  transition-delay: 0.1s;
+}
+
+.destination-item:hover a {
+  opacity: 1;
+}
+
+.destination-item a {
+  opacity: 0;
+}
+
+/* Desktop layout */
+.span-big {
+  grid-column: 1 / 3;
+  grid-row: 1 / 4;
+}
+
+.span-wide {
+  grid-column: 3 / 5;
+  grid-row: 1 / 2;
+}
+
+.span-tall {
+  grid-row: 2 / 4;
+}
+
+.small-items-container {
+  display: contents;
+}
+
+
+/* Mobile layout (≤768px) */
+@media (max-width: 768px) {
+  .destination-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-height: none;
+  }
+
+  .small-items-container {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .destination-item {
+    aspect-ratio: 16/9;
+    height: auto;
+  }
+
+  .span-big,
+  .span-wide,
+  .span-tall {
+    width: 100%;
+    grid-column: auto !important;
+    grid-row: auto !important;
+  }
+
+  .destination-item.span-tall {
+    width: calc(50% - 5px);
+    aspect-ratio: 1/1;
+  }
+
+  .overlay {
+    padding: 16px;
+    align-items: flex-start !important;
+    justify-content: flex-end !important;
+    text-align: left !important;
+    background: rgba(0, 0, 0, 0.5);
+  }
+
+  .overlay h2 {
+    font-size: 1.4rem;
+  }
+
+  .overlay p {
+    font-size: 0.9rem;
+    transform: translateY(0);
+    opacity: 1;
+    margin-top: 5px;
+  }
+
+  .destination-item a {
+    opacity: 1;
+    margin-top: 10px;
+    font-size: 0.9rem;
+  }
+  .blog-desktop-view{
+    display:none;
+  }
+}
+
+///
+.swiper-container {
+  max-width: 100%;
+  overflow: hidden;
+}
+
+
+.tours-slider {
+  width: 100%;
+ 
+}
+
+.swiper-wrapper {
+  display: flex;
+}
+
+.tour-slide::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
+  z-index: 2;
+}
+
+.tour-slide {
+  width: 300px !important; 
+  height: 400px !important; 
+  margin-right: 5px;
+  flex-shrink: 0; 
+  position: relative;
+  overflow: hidden; 
+}
+
+.tour-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; 
+  display: block !important;  
+   transition: transform 3s ease;
+}
+.tour-slide::after {
+  content: attr(data-tour-name);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20px;
+  background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+  color: white;
+  font-size: 1.2rem;
+  font-weight: bold;
+  transform: translateY(0);
+  transition: all 0.3s ease;
+   padding: 20px 20px 20px 40px;
+}
+
+/* Description overlay */
+.tour-description {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 1s ease;
+  height:100%;
+}
+/* Hover effects */
+.tour-slide:hover img {
+  transform: scale(1.5);
+}
+
+.tour-slide:hover::after {
+  transform: translateY(100%);
+  opacity: 0;
+}
+
+.tour-slide:hover .tour-description {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+  .explore-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--primary-dark);
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+  
+  .explore-btn:hover {
+    text-decoration: underline;
+    gap: 12px; /* Increases space on hover */
+  }
+  
+  .explore-btn i {
+    font-size: 0.9em;
+    transition: transform 0.3s ease;
+  }
+  
+  .explore-btn:hover i {
+    transform: translateX(3px);
+  }
+
+
+  .tours-overview-title::after{
+    content:'';
+    display:block;
+  border: 0.1px solid rgba(255, 255, 255, 0.6);
+    margin-bottom:1rem;
+  }
+
+
+  .tour-slide p {
+    color:white !important;
+  }
+
+  /////
+
+/* Gallery Vertical Slider Styles */
+.gallery-slider {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.gallery-vertical-slider {
+  height: 400px;
+  max-width: 400px;
+}
+
+.gallery-slide {
+  height: 100px;
+  
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin:4px 0;
+}
+
+.gallery-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.gallery-slide:hover img {
+  transform: scale(1.05);
+}
+
+
+.g-text-container{
+  height: 100%; 
+  overflow: hidden; 
+  display: grid; 
+  grid-template-columns: 1fr 1fr;
+  gap:4px
+}
+
+@media (max-width: 992px){
+  .g-text-container{
+    grid-template-columns: 1fr;
+
+  }
+
+  .story-section-background{
+    grid-template-columns:1fr !important;
+  }
+}
+
+///////////////////
+/* Gallery Vertical Slider Styles */
+  .gallery-slider {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .gallery-vertical-slider {
+    height: 400px;
+    max-width: 400px;
+  }
+
+  .gallery-slide {
+    height: 100px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin:4px 0;
+  }
+
+  .gallery-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  .gallery-slide:hover img {
+    transform: scale(1.05);
+  }
+
+  .g-text-container{
+    height: 100%; 
+    overflow: hidden; 
+    display: grid; 
+    grid-template-columns: 1fr 1fr;
+    gap:4px
+  }
+
+  /* Blog Horizontal Slider Styles */
+  .blog-horizontal-slider {
+    height: 450px;
+    width: 300px;
+    padding-bottom: 30px;
+  }
+
+  .blog-slide {
+    width: 300px;
+    height: auto;
+    box-sizing: border-box;
+  }
+
+
+  @media (max-width: 992px){
+    .g-text-container{
+      grid-template-columns: 1fr;
+    }
+    
+    .blog-desktop-view {
+    display:none;
+    }
+    .blog-mobile-view{
+      display:block !important;
+    }
+    
+  }
+
+  //
+    /* Add hover/active effects for interactivity */
+  @keyframes pulse {
+    0%, 100% { opacity: 0.6; transform: translateY(0); }
+    50% { opacity: 1; transform: translateY(5px); }
+  }
+  
+  /* Interaction Styles */
+  .blog-mobile-view {
+    transition: all 0.5s ease;
+  }
+  .blog-mobile-view:active {
+    transform: scale(0.98);
+  }

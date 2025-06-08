@@ -1,0 +1,30 @@
+  :root {
+  /* Colors */
+  --primary-color: #aba7c4;
+  --primary-light: #e8f5ee;
+  --secondary-color: #f8b739;
+  --dark-color: #222222;
+  --light-color: #ffffff;
+  --gray-color: #777777;
+  --light-gray: #f8f9fa;
+  --primary-dark:#5b5383;
+  
+  /* Fonts */
+  --primary-font: 'Montserrat', sans-serif;
+  --secondary-font: 'Playfair Display', serif;
+  
+  /* Spacing */
+  --section-padding: 100px;
+  --section-padding-mobile: 60px;
+  
+  /* Borders */
+  --border-radius: 5px;
+  --border-radius-lg: 10px;
+  
+  /* Shadows */
+  --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  --box-shadow-hover: 0 10px 25px rgba(0, 0, 0, 0.15);
+  
+  /* Transitions */
+  --transition: all 0.3s ease;
+}

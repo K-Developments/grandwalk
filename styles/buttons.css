@@ -1,0 +1,11 @@
+.btn{
+  -webkit-border-radius: 3px;
+    border-radius: 3px;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 300;
+    text-transform: uppercase;
+    border-radius: 2px;
+    padding: 1rem 2rem;
+    border-color:white;
+}
+

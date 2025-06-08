@@ -1,0 +1,1967 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GrandWalker Tours - Discover Sri Lanka's Wonders</title>
+  <meta name="description"
+    content="Experience the beauty of Sri Lanka with GrandWalker Tours. We offer customized travel packages to explore this tropical paradise.">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="./styles/variables.css">
+  <link rel="stylesheet" href="./styles/main.css">
+  <link rel="stylesheet" href="./styles/buttons.css">
+  <link rel="stylesheet" href="./styles/styles.css">
+  <link rel="stylesheet" href="./styles/home-sections.css">
+  <link rel="stylesheet" href="./styles/boostrap.css">
+  <link rel="stylesheet" href="./styles/swiper-bundle.min.css">
+
+  <!-- Favicon -->
+  <link rel="icon" href="images/favicon.png" type="image/png">
+
+  <style>
+    .hero-slider {
+      position: relative;
+      width: 100%;
+      height: 65vh;
+      /* Increased height for more impact */
+      overflow: hidden;
+    }
+
+    .slide {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      opacity: 0;
+      transform: scale(1.05);
+      transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 0;
+      will-change: transform, opacity;
+      /* Better performance */
+    }
+
+    .slide.active {
+      opacity: 1;
+      transform: scale(1);
+      z-index: 1;
+    }
+
+    .slide-overlay {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.2) 100%);
+      /* Gradient overlay */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+
+    }
+
+    .slide-content {
+      color: #fff;
+      max-width: 1200px;
+      padding: 0 2rem;
+      animation: fadeUp 1s ease-out forwards;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    .slide.active .slide-content {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (min-width: 992px) {
+
+      /* Hide some menu items on desktop */
+      .nav-bottombar .nav-item.blog-item,
+      .nav-bottombar .nav-item.gallery-item {
+        display: none;
+      }
+    }
+
+    .slider-dots {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 12px;
+      z-index: 2;
+    }
+
+    .dot {
+      width: 14px;
+      height: 14px;
+      background-color: rgba(255, 255, 255, 0.4);
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      border: 1px solid transparent;
+    }
+
+    h1 {
+      font-size: clamp(2.2rem, 2.8vw, 4.5rem);
+      /* Responsive font size */
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      /* Text shadow for better readability */
+    }
+
+    .slide-content p {
+      font-size: 1.25rem;
+      margin-bottom: 2.5rem;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+      text-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+    }
+
+    .dot.active {
+      background-color: #fff;
+      transform: scale(1.3);
+      border-color: rgba(255, 255, 255, 0.8);
+    }
+
+    .dot:hover {
+      background-color: rgba(255, 255, 255, 0.7);
+    }
+
+    /* Navigation arrows */
+    .slider-nav {
+      position: absolute;
+      top: 45%;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      z-index: 2;
+      transform: translateY(-50%);
+    }
+
+    .slider-arrow {
+      width: 30px;
+      height: 100px;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(5px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: white;
+    }
+
+    .slider-arrow:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: scale(1.1);
+    }
+
+    /* Scroll indicator */
+    .scroll-indicator {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: white;
+      z-index: 2;
+      cursor: pointer;
+      opacity: 0.8;
+      transition: opacity 0.3s ease;
+    }
+
+    .scroll-indicator:hover {
+      opacity: 1;
+    }
+
+    .scroll-indicator span {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 8px;
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 40px;
+      background: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .scroll-line::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 20px;
+      background: linear-gradient(to bottom, transparent, white);
+      animation: scrollAnimation 2s infinite;
+    }
+
+    @keyframes scrollAnimation {
+      0% {
+        transform: translateY(-20px);
+        opacity: 0;
+      }
+
+      50% {
+        opacity: 1;
+      }
+
+      100% {
+        transform: translateY(40px);
+        opacity: 0;
+      }
+    }
+
+    /* Dropdown styles */
+    .nav-item.dropdown {
+      position: relative;
+    }
+
+    .dropdown-menu {
+      position: absolute;
+      top: 34px;
+      left: 0;
+      background-color: #e6e5ed;
+      min-width: 220px;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 1000;
+      border-radius: 2px;
+      padding: 10px 0;
+    }
+
+    .dropdown:hover .dropdown-menu {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .dropdown-menu li {
+      padding: 8px 20px;
+    }
+
+    .dropdown-menu a {
+      color: #333 !important;
+      display: block;
+      transition: all 0.3s ease;
+    }
+
+    .dropdown-menu a:hover {
+      color: var(--primary-color) !important;
+      padding-left: 10px;
+    }
+
+    /* Mobile menu styles */
+    .mobile-menu-btn {
+      position: relative;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 40px;
+      height: 40px;
+      z-index: 9999;
+      margin-left: 1.2rem;
+    }
+
+    .mobile-menu-btn .line {
+      width: 24px;
+      height: 2px;
+      background-color: black;
+      margin: 2px 0;
+      transition: all 0.3s ease;
+      transform-origin: center;
+    }
+
+    .mobile-menu {
+      background-color: #f1f1f1;
+      font-weight: bold;
+      position: fixed;
+      top: 0;
+      right: -200%;
+      width: 300px;
+      height: 100vh;
+      padding: 80px 30px;
+      transition: all 0.3s ease;
+      z-index: 998;
+      overflow-y: auto;
+      box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .mobile-menu.active {
+      right: 0;
+    }
+
+    .mobile-menu .nav-list {
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .mobile-menu .nav-link {
+      color: #333;
+      padding: 12px 0;
+      font-size: 1.1rem;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .mobile-menu .dropdown-menu {
+      position: static;
+      opacity: 1;
+      visibility: visible;
+      box-shadow: none;
+      padding-left: 15px;
+      display: none;
+      background-color: rgba(0, 0, 0, 0.03);
+      border-radius: 5px;
+      margin-top: 5px;
+    }
+
+    .mobile-menu .dropdown.active .dropdown-menu {
+      display: block;
+    }
+
+    .mobile-menu .dropdown-toggle::after {
+      content: '+';
+      margin-left: 5px;
+      transition: transform 0.3s ease;
+      font-weight: bold;
+    }
+
+    .mobile-menu .dropdown.active .dropdown-toggle::after {
+      content: '-';
+    }
+
+    .mobile-menu-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 997;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(3px);
+    }
+
+    .mobile-menu-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* Mobile CTA styles */
+    .mobile-cta {
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .mobile-cta .phone-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #333;
+      font-size: 1.1rem;
+      margin-bottom: 20px;
+      padding: 10px 0;
+    }
+
+    .mobile-cta .btn-primary {
+      width: 100%;
+      text-align: center;
+      padding: 12px;
+      font-size: 1rem;
+    }
+
+    /* Hamburger lines */
+    .line {
+      position: absolute;
+      height: 2px;
+      width: 24px;
+      background-color: black;
+      border-radius: 1px;
+      transform-origin: center;
+      transition: all 0.3s ease;
+    }
+
+    .line-1 {
+      top: 12px;
+      transform: translateY(0) rotate(0);
+    }
+
+    .line-2 {
+      top: 19px;
+      opacity: 1;
+    }
+
+    .line-3 {
+      top: 26px;
+      transform: translateY(0) rotate(0);
+    }
+
+    /* Cross lines */
+    .cross-line {
+      position: absolute;
+      height: 2px;
+      width: 24px;
+      background-color: black;
+      border-radius: 1px;
+      transform-origin: center;
+      opacity: 1;
+      top: 19px;
+      left: 8px;
+    }
+
+    .cross-line-1 {
+      transform: rotate(45deg) scale(0);
+    }
+
+    .cross-line-2 {
+      transform: rotate(-45deg) scale(0);
+    }
+
+    /* Active states */
+    .mobile-menu-btn.active .line-1 {
+      transform: translateY(7px) rotate(45deg);
+    }
+
+    .mobile-menu-btn.active .line-2 {
+      opacity: 0;
+    }
+
+    .mobile-menu-btn.active .line-3 {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
+    .mobile-menu-btn.active .cross-line-1 {
+      opacity: 0;
+      transform: rotate(45deg) scale(1);
+    }
+
+    .mobile-menu-btn.active .cross-line-2 {
+      opacity: 0;
+      transform: rotate(-45deg) scale(1);
+    }
+
+    /* Blog/Gallery dropdown for desktop */
+    .mobile-btn-dropdown {
+      position: absolute;
+      top: 55px;
+      right: 0;
+      min-width: 160px;
+      z-index: 9999;
+      display: none;
+      background-color: #e6e5ed;
+      min-width: 220px;
+      transition: all 0.3s ease;
+      border-radius: 2px;
+      padding: 10px 0;
+      font-size: 1.5rem;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    .mobile-btn-dropdown a {
+      color: #333;
+      padding: 8px 16px;
+      text-decoration: none;
+      display: block;
+      white-space: nowrap;
+    }
+
+    .mobile-btn-dropdown a:hover {
+      background-color: #f1f1f1;
+      color: var(--primary-color);
+    }
+
+    @media (width <=575px) {
+
+      .header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 99999999;
+      }
+
+      .nav-topbar {
+        padding: 0.5rem 0;
+      }
+
+      .logo {
+        font-size: 2.5rem !important;
+      }
+
+      .hero-slider {
+        height: 60vh;
+      }
+
+      .floating-logo img {
+        width: 100px !important;
+      }
+
+      .dot {
+        width: 5px;
+        height: 5px;
+      }
+    }
+
+    /* Show blog/gallery items in mobile menu */
+    @media (max-width: 991px) {
+
+
+      .slider-nav {
+        display: none;
+        /* Hide arrows on mobile */
+      }
+
+      
+
+      .slide-content p {
+        font-size: 1rem;
+      }
+
+      /* Navigation adjustments */
+      .nav-bottombar {
+        display: none;
+      }
+
+      .mobile-menu-btn {
+        display: flex;
+      }
+
+      .nav-cta .btn-primary {
+        display: none;
+      }
+
+      .mobile-menu .nav-item.blog-item,
+      .mobile-menu .nav-item.gallery-item {
+        display: block;
+      }
+    }
+
+    /* Hero Slider Selector Styles */
+    .hero-slider-selector-container {
+      display: flex;
+      width: 100%;
+      justify-content: center;
+      gap: 2px;
+
+      flex-wrap: wrap;
+    }
+
+    .selector-item {
+      display: flex;
+      align-items: center;
+
+      cursor: pointer;
+      transition: all 0.3s ease;
+      width: 300px;
+    }
+
+    .selector-item.active {
+      background-color: var(--primary-color);
+      color: white;
+    }
+
+    .selector-item.active p {
+      color: white;
+    }
+
+    .selector-item img {
+      border-radius: 4px;
+      margin-right: 15px;
+      transition: all 0.3s ease;
+    }
+
+    .selector-item p {
+      width: 200px;
+      vertical-align: middle;
+      margin: 0;
+      color: var(--gray-color);
+      transition: all 0.3s ease;
+    }
+
+    .video-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+
+
+    /* Play button for video slides */
+    .play-button {
+      width: 60px;
+      height: 60px;
+      background-color: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 20px auto 0;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(5px);
+      border: 2px solid white;
+    }
+
+    .play-button i {
+      color: white;
+      font-size: 20px;
+      margin-left: 5px;
+    }
+
+    .play-button:hover {
+      transform: scale(1.1);
+      background-color: rgba(255, 255, 255, 0.3);
+    }
+
+    /* Responsive styles */
+    @media (max-width: 768px) {
+      .hero-slider-selector-container {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .selector-item {
+        width: 90%;
+        padding: 10px;
+      }
+
+      .selector-item img {
+        width: 70px;
+      }
+
+      .selector-item p {
+        width: 180px;
+        font-size: 14px;
+      }
+    }
+
+    .h-title {
+      color: white !important;
+    }
+  </style>
+</head>
+
+<body style="padding-bottom: 500px;">
+  <!-- Header -->
+  <header class="header transition-all duration-1000 " style="background-color: var(--primary-color);">
+    <nav class="navbar">
+      <div class="modern-container">
+        <div class="nav-topbar"
+          style="display: flex; width: 100%; align-items: center; justify-content: space-between;">
+          <a href="index.html" class="logo">
+            <img class="nav-logo" src="./assets/navbar-logo.png" alt="" width="250px">
+          </a>
+          <div class="nav-cta">
+            <a href="tel:+94112345678" class="phone-link">
+              <i class="fas fa-phone-alt"></i> +94 112 345 678
+            </a>
+            <a href="contact.html" class="btn btn-primary">Contact Now</a>
+            <div class="mobile-menu-btn">
+              <div class="line line-1"></div>
+              <div class="line line-2"></div>
+              <div class="line line-3"></div>
+              <div class="cross-line cross-line-1"></div>
+              <div class="cross-line cross-line-2"></div>
+              <div class="mobile-btn-dropdown">
+                <a href="blog.html" class="nav-link">Blog & News</a>
+                <a href="gallery.html" class="nav-link">Gallery</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Desktop Navigation -->
+      <div class="nav-bottombar block uppercase font-bold" style="background-color:#f1f0f5; padding: 1.2rem 0;">
+        <div class="nav-menu modern-container">
+          <ul class="nav-list ">
+            <li class="nav-item"><a href="index.html" class="nav-link active">Home</a></li>
+            <li class="nav-item"><a href="about.html" class="nav-link">About Us</a></li>
+            <li class="nav-item"><a href="services.html" class="nav-link">Services</a></li>
+
+            <li class="nav-item dropdown">
+              <a href="tours.html" class="nav-link">Tours <i class="fas fa-chevron-down"
+                  style="font-size: 10px; margin-left: 5px;"></i></a>
+              <ul class="dropdown-menu">
+                <li><a href="tours.html#cultural">Cultural Tours</a></li>
+                <li><a href="tours.html#adventure">Beach Holidays
+                  </a></li>
+                <li><a href="tours.html#wildlife">Nature & Eco Tours
+                  </a></li>
+                <li><a href="tours.html#beach">Wildlife Safaris
+                  </a></li>
+                <li><a href="tours.html#honeymoon">Hill Country</a></li>
+
+                <li><a href="tours.html#honeymoon"> Culinary & Food Tours</a></li>
+
+                <li><a href="tours.html#honeymoon">Adventure & Sports Tours
+                  </a></li>
+
+                <li><a href="tours.html#honeymoon">Religious Pilgrimage Tours
+
+                  </a></li>
+
+                <li><a href="tours.html#honeymoon">Family & Educational Tours
+
+                  </a></li>
+
+
+              </ul>
+            </li>
+
+            <li class="nav-item dropdown">
+              <a href="destinations.html" class="nav-link">Destinations <i class="fas fa-chevron-down"
+                  style="font-size: 10px; margin-left: 5px;"></i></a>
+              <ul class="dropdown-menu">
+                <li><a href="destinations.html#colombo"> Sigiriya</a></li>
+                <li><a href="destinations.html#kandy">Ella</a></li>
+                <li><a href="destinations.html#galle">Kandy</a></li>
+                <li><a href="destinations.html#sigiriya">Yala National Park</a></li>
+                <li><a href="destinations.html#nuwaraeliya">Nuwara Eliya</a></li>
+                <li><a href="destinations.html#trincomalee">Galle</a></li>
+                <li><a href="destinations.html#trincomalee">Sinharaga Forest</a></li>
+                <li><a href="destinations.html#trincomalee">Trincomalee</a></li>
+                <li><a href="destinations.html#trincomalee">Anuradhapura</a></li>
+                <li><a href="destinations.html#trincomalee">Dambulla</a></li>
+                <li><a href="destinations.html#trincomalee">Colombo</a></li>
+
+              </ul>
+            </li>
+
+            <li class="nav-item"><a href="rentacar.html" class="nav-link">Rent A Car</a></li>
+            <li class="nav-item blog-item"><a href="blog.html" class="nav-link">Blog & News</a></li>
+            <li class="nav-item gallery-item"><a href="gallery.html" class="nav-link">Gallery</a></li>
+            <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu-overlay"></div>
+    <div class="mobile-menu">
+      <ul class="nav-list">
+        <li class="nav-item"><a href="index.html" class="nav-link active">Home</a></li>
+        <li class="nav-item"><a href="about.html" class="nav-link">About Us</a></li>
+        <li class="nav-item"><a href="services.html" class="nav-link">Services</a></li>
+
+        <li class="nav-item dropdown">
+          <a href="tours.html" class="nav-link dropdown-toggle">Tours</a>
+          <ul class="dropdown-menu">
+            <li><a href="tours.html#cultural">Cultural Tours</a></li>
+            <li><a href="tours.html#adventure">Adventure Tours</a></li>
+            <li><a href="tours.html#wildlife">Wildlife Safaris</a></li>
+            <li><a href="tours.html#beach">Beach Holidays</a></li>
+            <li><a href="tours.html#honeymoon">Honeymoon Packages</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a href="destinations.html" class="nav-link dropdown-toggle">Destinations</a>
+          <ul class="dropdown-menu">
+            <li><a href="destinations.html#colombo">Colombo</a></li>
+            <li><a href="destinations.html#kandy">Kandy</a></li>
+            <li><a href="destinations.html#galle">Galle</a></li>
+            <li><a href="destinations.html#sigiriya">Sigiriya</a></li>
+            <li><a href="destinations.html#nuwaraeliya">Nuwara Eliya</a></li>
+            <li><a href="destinations.html#trincomalee">Trincomalee</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item"><a href="rentacar.html" class="nav-link">Rent A Car</a></li>
+        <li class="nav-item blog-item"><a href="blog.html" class="nav-link">Blog & News</a></li>
+        <li class="nav-item gallery-item"><a href="gallery.html" class="nav-link">Gallery</a></li>
+        <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+      </ul>
+
+      <div class="mobile-cta">
+        <a href="tel:+94112345678" class="phone-link">
+          <i class="fas fa-phone-alt"></i> +94 112 345 678
+        </a>
+        <a href="contact.html" class="btn btn-primary">Contact Now</a>
+      </div>
+    </div>
+  </header>
+
+  <!--main -->
+  <main>
+    <!--hero section-->
+    <!--hero section-->
+    <section id="home" class="overflow-hidden">
+      <div class="hero-slider relative overflow-hidden">
+        <!-- Landscape Images Slides -->
+        <div class="slide active" data-category="images"
+          style="background-image: url('./assets/hero-images/hero-slider-1.webp')">
+          <div class="slide-overlay">
+            <div class="slide-content">
+              <h1>Discover Beautiful Landscapes</h1>
+              <p class="h-title">Explore the most stunning natural wonders from around the world</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide" data-category="images"
+          style="background-image: url('./assets/hero-images/hero-slider-2.webp')">
+          <div class="slide-overlay">
+            <div class="slide-content">
+              <h1>Urban Adventures Await</h1>
+              <p class="h-title">Experience the vibrant energy of the world's greatest cities</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide" data-category="images"
+          style="background-image: url('./assets/hero-images/hero-slider-3.webp')">
+          <div class="slide-overlay">
+            <div class="slide-content">
+              <h1>Tropical Paradise</h1>
+              <p class="h-title">Relax on pristine beaches with crystal clear waters</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Video Preview Slides -->
+        <div class="slide" data-category="videos">
+          <video autoplay muted loop playsinline class="video-bg" width="100%" height="100%">
+            <source src="../assets/hero-images/13809262_1280_720_60fps.mp4" type="video/mp4">
+
+          </video>
+          <div class="slide-overlay">
+            <div class="slide-content">
+              <h1>Discover Sri Lanka Through Videos</h1>
+              <p class="h-title">Watch our curated collection of travel videos showcasing Sri Lanka's beauty</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide" data-category="videos">
+          <video autoplay muted loop playsinline class="video-bg" width="100%" height="100%">
+            <source src="./assets/hero-images/13809262_1280_720_60fps.mp4" type="video/mp4">
+
+          </video>
+          <div class="slide-overlay">
+            <div class="slide-content">
+              <h1>Discover Sri Lanka Through Videos</h1>
+              <p class="h-title">Watch our curated collection of travel videos showcasing Sri Lanka's beauty</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- View Points Slides -->
+        <div class="slide" data-category="viewpoints"
+          style="background-image: url('./assets/hero-images/viewpoint-1.jpg')">
+          <div class="slide-overlay">
+            <div class="slide-content">
+              <h1>Must-See View Points</h1>
+              <p class="h-title">Discover the most breathtaking viewpoints across Sri Lanka</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide" data-category="viewpoints"
+          style="background-image: url('./assets/hero-images/viewpoint-2.jpg')">
+          <div class="slide-overlay">
+            <div class="slide-content">
+              <h1>Scenic Overlooks</h1>
+              <p class="h-title">Panoramic views that will take your breath away</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Navigation arrows -->
+        <div class="slider-nav">
+          <div class="slider-arrow prev-arrow">
+            <i class="fas fa-chevron-left"></i>
+          </div>
+          <div class="slider-arrow next-arrow">
+            <i class="fas fa-chevron-right"></i>
+          </div>
+        </div>
+
+        <!-- Scroll indicator -->
+        <div class="scroll-indicator">
+          <span>Scroll Down</span>
+          <div class="scroll-line"></div>
+        </div>
+
+        <div class="slider-dots">
+          <!-- Dots will be generated dynamically in JS -->
+        </div>
+      </div>
+
+      <!--hero-slider-selector-->
+      <div class="hero-slider-selector-container">
+        <div class="selector-item active" data-category="images">
+          <div class="flex items-center justify-center">
+            <svg style="width: 65px;" viewBox="0 0 48 48" id="b" xmlns="http://www.w3.org/2000/svg" fill="#000000"
+              stroke="#000000" stroke-width="1.008">
+              <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+              <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+              <g id="SVGRepo_iconCarrier">
+                <defs>
+                  <style>
+                    .c {
+                      fill: none;
+                      stroke: #000000;
+                      stroke-linecap: round;
+                      stroke-linejoin: round;
+                    }
+                  </style>
+                </defs>
+                <rect class="c" x="5.5" y="9" width="37" height="30" rx="2" ry="2"></rect>
+                <polyline class="c" points="35 9 35 32.5 12 32.5 12 15.5 35 15.6006"></polyline>
+                <line class="c" x1="42.4662" y1="32.5" x2="35" y2="32.5"></line>
+                <circle class="c" cx="29" cy="21.6006" r="4"></circle>
+                <line class="c" x1="12" y1="21.6006" x2="5.5" y2="21.6006"></line>
+                <path class="c" d="m22.8994,32.5c0-6.0196-4.8798-10.8994-10.8994-10.8994"></path>
+              </g>
+            </svg>
+            <p>Experience Sri Lankan beautiful landscapes</p>
+          </div>
+        </div>
+
+        <div class="selector-item" data-category="videos">
+          <div class="flex items-center justify-center">
+            <svg style="width: 55px; margin-right:1rem;" fill="#000000" viewBox="0 -5 46 46"
+              xmlns="http://www.w3.org/2000/svg" stroke="#000000" stroke-width="0.00046">
+              <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+              <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+              <g id="SVGRepo_iconCarrier">
+                <path id="_23.Videos" data-name="23.Videos"
+                  d="M43,42H5a4,4,0,0,1-4-4V10A4,4,0,0,1,5,6H43a4,4,0,0,1,4,4V38A4,4,0,0,1,43,42ZM12,8H5a2,2,0,0,0-2,2v2h9ZM23,8H14v4h9ZM34,8H25v4h9Zm11,2a2,2,0,0,0-2-2H36v4h9Zm0,4H3V34H45Zm0,22H36v4H34V36H25v4H23V36H14v4H12V36H3v2a2,2,0,0,0,2,2H43a2,2,0,0,0,2-2ZM21.621,29.765A.987.987,0,0,1,21,30a1,1,0,0,1-1-1V19a1,1,0,0,1,1-1,.978.978,0,0,1,.563.2l7.771,4.872a.974.974,0,0,1,.261,1.715Z"
+                  transform="translate(-1 -6)" fill-rule="evenodd"></path>
+              </g>
+            </svg>
+            <p>Discover Sri Lankan Beauty with Videos</p>
+          </div>
+        </div>
+
+        <div class="selector-item" data-category="viewpoints">
+          <div class="flex items-center justify-center">
+            <img src="./assets/Hero-sliderpreview-selector/SINCE 2014.png" alt="" width="90px">
+            <p>View Points You Should Visit</p>
+          </div>
+        </div>
+      </div>
+
+      <!--floating logo -->
+      <div class="absolute top-[10%] z-[2] opacity-[0.6] floating-logo">
+        <img src="./assets/Untitled design 2.png" alt="" width="200px">
+      </div>
+    </section>
+
+
+
+
+
+    <!--section 2-->
+    <!-- Our Story Section -->
+    <section class="section" id="our-story" style="padding-top: 40px !important; position: relative; overflow: hidden; background-color:#f1f0f5 ;">
+      
+      <div class="modern-container " style="position: relative; z-index: 2;">
+        <div class="section-header">
+          <h2 class="section-subtitle">Our Journey</h2>
+          <p class="section-description">From humble beginnings to becoming Sri Lanka's premier tour operator</p>
+        </div>
+        </div>
+
+           <div class="modern-container" style="position: relative; z-index: 22222;">
+        <div class="story-container  "
+          style="display: grid;  grid-template-columns: 1fr 1fr; gap: 40px; align-items: center;  ">
+          <!-- Story Content -->
+        
+          <div class="story-content">
+
+            <!--desktop storytimelne-->
+            <div class="story-timeline">
+              <!-- Timeline Item 1 -->
+              <div class="timeline-item" style="position: relative; padding-left: 60px; margin-bottom: 40px;">
+                <div class="timeline-year"
+                  style="position: absolute; left: 0; top: 0; width: 40px; height: 40px; background-color: var(--primary-dark); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 14px;">
+                  2014</div>
+                <h3
+                  style="font-family: var(--secondary-font); font-size: 22px; margin-bottom: 10px; color: var(--dark-color);">
+                  Years of Experience</h3>
+                <p style="color: var(--gray-color);  ">With over a decade in the travel industry, Grandwalker Tours has
+                  mastered the art of creating seamless and unforgettable journeys for every kind of traveler.</p>
+              </div>
+
+              <!-- Timeline Item 2 -->
+              <div class="timeline-item" style="position: relative; padding-left: 60px; margin-bottom: 40px;">
+                <div class="timeline-year"
+                  style="position: absolute; left: 0; top: 0; width: 40px; height: 40px; background-color: var(--primary-dark); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 14px;">
+                  2016</div>
+                <h3
+                  style="font-family: var(--secondary-font); font-size: 22px; margin-bottom: 10px; color: var(--dark-color);">
+                  Expert Local Guides</h3>
+                <p style="color: var(--gray-color);">Our certified local guides bring destinations to life with deep
+                  knowledge, insider tips, and authentic cultural experiences you won’t find in guidebooks.</p>
+              </div>
+
+              <!-- Timeline Item 3 -->
+              <div class="timeline-item" style="position: relative; padding-left: 60px; margin-bottom: 40px;">
+                <div class="timeline-year"
+                  style="position: absolute; left: 0; top: 0; width: 40px; height: 40px; background-color: var(--primary-dark); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 14px;">
+                  2020</div>
+                <h3
+                  style="font-family: var(--secondary-font); font-size: 22px; margin-bottom: 10px; color: var(--dark-color);">
+                  24/7 Hour Service</h3>
+                <p style="color: var(--gray-color);">Travel stress-free with our round-the-clock support. Whether it’s
+                  day or night, we’re here to assist you anytime, anywhere.</p>
+              </div>
+
+              <!-- Timeline Item 4 -->
+              <div class="timeline-item" style="position: relative; padding-left: 60px;">
+                <div class="timeline-year"
+                  style="position: absolute; left: 0; top: 0; width: 40px; height: 40px; background-color: var(--primary-dark); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 14px;">
+                  2023</div>
+                <h3
+                  style="font-family: var(--secondary-font); font-size: 22px; margin-bottom: 10px; color: var(--dark-color);">
+                  10K+ Happy Customers</h3>
+                <p style="color: var(--gray-color);">Join over 10,000 satisfied travelers who’ve explored the world with
+                  Grandwalker Tours—where every trip ends with a smile.</p>
+              </div>
+            </div>
+
+            <!--mobile story timeline-->
+            <div class="mobile-story-timeline" style=" padding: 20px;">
+
+              <!-- Timeline Item -->
+              <div class="timeline-item" style="position: relative; padding-left: 60px; margin-bottom: 20px;">
+                <div class="timeline-year"
+                  style="position: absolute; left: 0; top: 0; width: 40px; height: 40px; background-color: var(--primary-dark); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 14px;">
+                  2014</div>
+
+                <div onclick="toggleAccordion(this)"
+                  style="display: flex; justify-content: space-between; align-items: center; cursor: pointer; ">
+                  <h3
+                    style="font-family: var(--secondary-font); font-size: 22px; color: var(--dark-color); margin-bottom: 0;">
+                    Years of Experience</h3>
+                  <i class="fas fa-chevron-down"
+                    style="font-size: 12px; color: black; transition: transform 0.3s ease;"></i>
+                </div>
+
+                <div class="accordion-content"
+                  style="max-height: 0; overflow: hidden; transition: max-height 0.5s ease; color: var(--gray-color); margin-top: 10px;  border-bottom: 1px solid var(--gray-color);">
+                  <p style="margin-bottom: 1rem;">With over a decade in the travel industry, Grandwalker Tours has
+                    mastered the
+                    art of creating seamless and unforgettable journeys for every kind of traveler.</p>
+                </div>
+              </div>
+
+              <!-- Timeline Item 2 -->
+              <div class="timeline-item" style="position: relative; padding-left: 60px; margin-bottom: 20px;">
+                <div class="timeline-year"
+                  style="position: absolute; left: 0; top: 0; width: 40px; height: 40px; background-color: var(--primary-dark); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 14px;">
+                  2014</div>
+
+                <div onclick="toggleAccordion(this)"
+                  style="display: flex; justify-content: space-between; align-items: center; cursor: pointer; ">
+                  <h3
+                    style="font-family: var(--secondary-font); font-size: 22px; color: var(--dark-color); margin-bottom: 0;">
+                    Expert Local Guides</h3>
+                  <i class="fas fa-chevron-down"
+                    style="font-size: 12px; color: black; transition: transform 0.3s ease;"></i>
+                </div>
+
+                <div class="accordion-content"
+                  style="max-height: 0; overflow: hidden; transition: max-height 0.5s ease; color: var(--gray-color); margin-top: 10px;  border-bottom: 1px solid var(--gray-color);">
+                  <p style="margin-bottom: 1rem;">Our certified local guides bring destinations to life with deep
+                    knowledge, insider tips, and authentic cultural experiences you won’t find in guidebooks.</p>
+                </div>
+              </div>
+
+
+              <!-- Timeline Item 3 -->
+              <div class="timeline-item" style="position: relative; padding-left: 60px; margin-bottom: 20px;">
+                <div class="timeline-year"
+                  style="position: absolute; left: 0; top: 0; width: 40px; height: 40px; background-color: var(--primary-dark); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 14px;">
+                  2014</div>
+
+                <div onclick="toggleAccordion(this)"
+                  style="display: flex; justify-content: space-between; align-items: center; cursor: pointer; ">
+                  <h3
+                    style="font-family: var(--secondary-font); font-size: 22px; color: var(--dark-color); margin-bottom: 0;">
+                    24/7 Hour Service</h3>
+                  <i class="fas fa-chevron-down"
+                    style="font-size: 12px; color: black; transition: transform 0.3s ease;"></i>
+                </div>
+
+                <div class="accordion-content"
+                  style="max-height: 0; overflow: hidden; transition: max-height 0.5s ease; color: var(--gray-color); margin-top: 10px;  border-bottom: 1px solid var(--gray-color);">
+                  <p style="margin-bottom: 1rem;">WTravel stress-free with our round-the-clock support. Whether it’s day
+                    or night, we’re here to assist you anytime, anywhere.</p>
+                </div>
+              </div>
+
+
+              <!-- Timeline Item 4 -->
+              <div class="timeline-item" style="position: relative; padding-left: 60px; margin-bottom: 20px;">
+                <div class="timeline-year"
+                  style="position: absolute; left: 0; top: 0; width: 40px; height: 40px; background-color: var(--primary-dark); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 14px;">
+                  2014</div>
+
+                <div onclick="toggleAccordion(this)"
+                  style="display: flex; justify-content: space-between; align-items: center; cursor: pointer;">
+                  <h3
+                    style="font-family: var(--secondary-font); font-size: 22px; color: var(--dark-color); margin-bottom: 0;">
+                    10K+ Happy Customers</h3>
+                  <i class="fas fa-chevron-down"
+                    style="font-size: 12px; color: black; transition: transform 0.3s ease;"></i>
+                </div>
+
+                <div class="accordion-content "
+                  style="max-height: 0; overflow: hidden; transition: max-height 0.5s ease; color: var(--gray-color); margin-top: 10px; border-bottom: 1px solid var(--gray-color);">
+                  <p style="margin-bottom: 1rem;">Join over 10,000 satisfied travelers who’ve explored the world with
+                    Grandwalker Tours—where every trip ends with a smile.</p>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="story-stats"
+              style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 40px;">
+              <div class="stat-item" style="text-align: center;">
+                <div class="stat-number"
+                  style="font-size: 36px; font-weight: bold; color: var(--primary-dark); margin-bottom: 5px;">10+</div>
+                <div class="stat-label"
+                  style="font-size: 14px; color: #444444; text-transform: uppercase; letter-spacing: 1px;">
+                  Years of Experience</div>
+              </div>
+              <div class="stat-item" style="text-align: center;">
+                <div class="stat-number"
+                  style="font-size: 36px; font-weight: bold; color: var(--primary-dark); margin-bottom: 5px;">100%
+                </div>
+                <div class="stat-label"
+                  style="font-size: 14px; color: #444444; text-transform: uppercase; letter-spacing: 1px;">
+                  Local Guides</div>
+              </div>
+              <div class="stat-item" style="text-align: center;">
+                <div class="stat-number"
+                  style="font-size: 36px; font-weight: bold; color: var(--primary-dark); margin-bottom: 5px;">24/7
+                </div>
+                <div class="stat-label"
+                  style="font-size: 14px; color: #444444; text-transform: uppercase; letter-spacing: 1px;">
+                  Support</div>
+              </div>
+              <div class="stat-item" style="text-align: center;">
+                <div class="stat-number"
+                  style="font-size: 36px; font-weight: bold; color: var(--primary-dark); margin-bottom: 5px;">10K+
+                </div>
+                <div class="stat-label"
+                  style="font-size: 14px; color: #444444; text-transform: uppercase; letter-spacing: 1px;">
+                  Happy Travelers</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Story Image -->
+          <div class="story-image" style="position: relative; background-color: var(--primary-color); padding-inline: 2rem; ">
+       
+            <div style="position: relative; border-radius: 2px; overflow: hidden; box-shadow: var(--box-shadow);">
+              <img src="./assets/discover-grandwalker/471381112_941173434659929_3092672427346977547_n.jpg
+            " alt="GrandWalker Team" style="width: 100%; height: auto; display: block;">
+              <div
+                style="position: absolute; bottom: 0; left: 0; width: 100%; padding: 20px; background: linear-gradient(to top, rgba(0,0,0,0.7), transparent); color: white;">
+                <h3 style="font-family: var(--secondary-font); margin-bottom: 5px;">Your Passion is our Passion</h3>
+                <p style="font-size: 14px; opacity: 0.9;">The passionate people behind GrandWalker's success</p>
+              </div>
+            </div>
+
+            <div
+              style="margin-top: 30px; background-color:#f1f0f5; padding: 30px; border-radius: 2px; box-shadow: var(--box-shadow); margin-bottom: 20px;">
+              <h3
+                style="font-family: var(--secondary-font); font-size: 22px; margin-bottom: 15px; color: var(--dark-color);">
+                Our Mission</h3>
+              <p style="color: var(--gray-color); margin-bottom: 20px;">To provide authentic, sustainable, and
+                unforgettable travel experiences that showcase the best of Sri Lanka while supporting local communities.
+              </p>
+
+              <h3
+                style="font-family: var(--secondary-font); font-size: 22px; margin-bottom: 15px; color: var(--dark-color);">
+                Our Vision</h3>
+              <p style="color: var(--gray-color);">To be recognized as Sri Lanka's most trusted and innovative tour
+                operator, setting the standard for responsible tourism in the region.</p>
+            </div>
+          </div>
+        </div>
+     </div>
+
+      <div class="story-section-background" style="position: absolute; display: grid; top: 0; left: 0; right: 0; bottom: 0; width: 100%; height: 100%; grid-template-columns: 1fr 1fr; gap: 5px; box-sizing: border-box ; margin-top: 15rem; ">
+        <div style="background-color: var(--primary-color);"></div>
+        <div style="background-color: #f1f0f5;"></div>
+      </div>
+   
+    </section>
+
+
+    <!--section 3-->
+    <!-- Top Destinations -->
+    <section class="section overflow-hidden" style="background-color: #f1f0f5;" id="top-destinations-tours-overview">
+      <div class="modern-container">
+        <div class="section-header">
+          <h2 class="section-subtitle">Best Destinations</h2>
+          <p class="section-description">Discover the Most Breathtaking Places to Visit in Sri Lanka – From Pristine
+            Beaches to Lush Hill Country</p>
+        </div>
+
+
+        <div class="destination-grid">
+          <div class="destination-item span-big">
+            <img src="./assets/destinations/sigiriya.webp" alt="sigiriya">
+            <div class="overlay">
+              <h2>Sigiriya</h2>
+              <p>Tropical paradise with crystal-clear waters</p>
+              <a href="destinations.html" class="btn btn-primary">Explore</a>
+            </div>
+          </div>
+
+          <div class="destination-item span-wide">
+            <img src="./assets/destinations/ella.webp" alt="ella">
+            <div class="overlay">
+              <h2>Ella Odesy</h2>
+              <p>Breathtaking mountain adventures await</p>
+              <a href="destinations.html" class="btn btn-primary">Explore</a>
+            </div>
+          </div>
+
+          <div class="small-items-container">
+            <div class="destination-item span-tall">
+              <img src="./assets/destinations/kandy.webp" alt="kandy">
+              <div class="overlay">
+                <h2>Kandy</h2>
+                <p>Romantic sunsets over whitewashed villages</p>
+                <a href="destinations.html" class="btn btn-primary">Explore</a>
+              </div>
+            </div>
+
+            <div class="destination-item span-tall">
+              <img src="./assets/destinations/nuwara-eliya.webp" alt="nuwara eliya">
+              <div class="overlay">
+                <h2>Nuwara Eliya</h2>
+                <p>Fusion of tradition and cutting-edge tech</p>
+                <a href="destinations.html" class="btn btn-primary">Explore</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!--section 4-->
+    <section id="tour-gallery-blog-overview-section" class="bg-light" style="overflow: hidden;">
+      <!--tours never miss part-->
+      <div id="tours-overview" class="bg-light">
+        <div class="modern-container">
+          <div class="section-header" style="padding-top: 5rem;">
+            <h2 class="section-subtitle">Our Unique Tours</h2>
+            <p class="section-description">Discover the Most Breathtaking Places to Visit in Sri Lanka – From Pristine
+              Beaches to Lush Hill Country
+            </p>
+
+            <br>
+
+          </div>
+        </div>
+
+        <!-- Swiper -->
+        <div class="swiper-container tours-slider ">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide tour-slide" data-tour-name="Adventure Tours">
+              <img src="./assets/tours/adventure-tours.webp" alt="adventure-tour" class="swiper-lazy" />
+              <div class="tour-description">
+                <h3 class="tours-overview-title">Adventure Tours</h3>
+                <p>Experience thrilling activities like hiking, white-water rafting, and wildlife safaris in Sri Lanka's
+                  breathtaking landscapes.</p>
+
+                <br>
+                <a href="#" class="explore-btn">
+                  Explore <i class="fas fa-chevron-right"></i>
+                </a>
+              </div>
+            </div>
+            <div class="swiper-slide tour-slide" data-tour-name="Beach Holidays">
+              <img src="./assets/tours/beach-holiday.webp" alt="beach-holiday-tour" class="swiper-lazy" />
+              <div class="tour-description">
+                <h3 class="tours-overview-title">Beach Holidays</h3>
+                <p>Relax on pristine beaches with golden sands and crystal-clear waters along Sri Lanka's stunning
+                  coastline.</p>
+
+                <br>
+                <a href="#" class="explore-btn">
+                  Explore <i class="fas fa-chevron-right"></i>
+                </a>
+              </div>
+            </div>
+            <div class="swiper-slide tour-slide" data-tour-name="Culture Tours">
+              <img src="./assets/tours/culture-tours.webp" alt="culture-tour" class="swiper-lazy" />
+              <div class="tour-description">
+                <h3 class="tours-overview-title">Culture Tours</h3>
+                <p>Explore ancient temples, historical sites, and vibrant traditions that showcase Sri Lanka's rich
+                  cultural heritage.</p>
+
+                <br>
+                <a href="#" class="explore-btn">
+                  Explore <i class="fas fa-chevron-right"></i>
+                </a>
+              </div>
+            </div>
+
+            <div class="swiper-slide tour-slide" data-tour-name="Nature Tours">
+              <img src="./assets/tours/nature-tour.webp" alt="nature-tour" class="swiper-lazy" />
+
+              <div class="tour-description">
+                <h3 class="tours-overview-title">Nature Tours</h3>
+                <p>Immerse yourself in Sri Lanka's lush rainforests, misty mountains, and abundant wildlife. Spot
+                  leopards in Yala, elephants in Minneriya, and exotic birds in Sinharaja rainforest.</p>
+                <br>
+
+                <a href="#" class="explore-btn">
+                  Explore <i class="fas fa-chevron-right"></i>
+                </a>
+              </div>
+            </div>
+
+            <div class="swiper-slide tour-slide" data-tour-name="Religious Tours">
+              <img src="./assets/tours/relegious-tour.webp" alt="relegious-tour" class="swiper-lazy" />
+
+              <div class="tour-description">
+                <h3 class="tours-overview-title">Religious Tours</h3>
+                <p>Journey through sacred sites including the Temple of the Tooth in Kandy, Adam's Peak pilgrimage
+                  trail, and ancient Buddhist cave temples in Dambulla and Mihintale.</p>
+              </div>
+            </div>
+
+            <div class="swiper-slide tour-slide" data-tour-name="Food Tours">
+              <span class="tour-line"></span>
+              <img src="./assets/tours/food-tour.webp" alt="food-tour" class="swiper-lazy" />
+
+              <div class="tour-description">
+                <h3 class="tours-overview-title">Food Tours</h3>
+                <p>Savor Sri Lanka's vibrant cuisine - from fiery curries to hoppers and kottu. Visit spice gardens,
+                  local markets, and cooking demonstrations to experience authentic flavors.</p>
+                <br>
+                <a href="#" class="explore-btn">
+                  Explore <i class="fas fa-chevron-right"></i>
+                </a>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+
+      </div>
+
+<div class="gallery-blog-overview" style="display:grid; grid-template-columns: 1fr 1fr; height: 600px; column-gap: 5px; margin-top: 5rem;">
+
+  <!-- Gallery Section (unchanged) -->
+  <div class="gallery-view-container" style="position: relative; background-color: #f1f0f5;">
+    <div class="modern-container" style="height: 100%;">
+      <div class="section-header-2" style="padding-top: 5rem; ">
+        <h2 class="section-subtitle">Gallery</h2>
+        <br>
+      </div>
+
+      <div class="g-text-container">
+        <div class="gallery-slider">
+          <div class="swiper-container gallery-vertical-slider">
+            <div class="swiper-wrapper">
+              <!-- Gallery Slides -->
+              <div class="swiper-slide gallery-slide">
+                <img src="./assets/hero-images/hero-slider-1.webp" alt="Gallery Image 1" class="swiper-lazy">
+              </div>
+              <div class="swiper-slide gallery-slide">
+                <img src="./assets/tours/beach-holiday.webp" alt="Gallery Image 2" class="swiper-lazy">
+              </div>
+              <div class="swiper-slide gallery-slide">
+                <img src="./assets/tours/adventure-tours.webp" alt="Gallery Image 3" class="swiper-lazy">
+              </div>
+              <div class="swiper-slide gallery-slide">
+                <img src="./assets/tours/food-tour.webp" alt="Gallery Image 4" class="swiper-lazy">
+              </div>
+              <div class="swiper-slide gallery-slide">
+                <img src="./assets/tours/relegious-tour.webp" alt="Gallery Image 5" class="swiper-lazy">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="gallery-content">
+          <div>
+            <p style="margin-left: 1.2rem; font-weight: bold;">Photo Gallery - Capturing Our Best Moments</p>
+            <br>
+            <p style="margin-left: 1.2rem;">Browse our photo gallery to discover highlights of our work, events, and creative moments. Each image showcases our dedication, passion, and expertise. Whether you're looking for inspiration or insight into what we do, this curated collection brings our story to life—one picture at a time.</p>
+            <br>
+            <a href="gallery.html" class="btn btn-secondary" style="margin-left: 1.2rem;">View Gallery</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Blog Section with Horizontal Swiper -->
+  <div class="blog-view-container" style="background-color: var(--primary-color);">
+
+    <!--blog-desktop-->
+    <div class="modern-container blog-desktop-view" style="height: 100%;">
+      <div class="section-header-2" style="padding-top: 5rem; color: white;">
+        <h2 class="section-subtitle">Blog</h2>
+        <br>
+      </div>
+
+      <div class="blog-slider-container" style=" overflow: hidden; position: relative;">
+        <div class="swiper-container blog-horizontal-slider">
+          <div class="swiper-wrapper">
+            <!-- Blog Slides -->
+            <div class="swiper-slide blog-slide" style="background-color: #f1f0f5; border-radius: 2px; padding: 20px; margin-right: 15px;">
+              <div class="blog-image" style="height: 150px; overflow: hidden; margin-bottom: 15px;">
+                <img src="./assets/blog/travel-tips.webp" alt="Blog Post 1" style="width: 100%; height: 100%; object-fit: cover;">
+              </div>
+              <h3 style="margin-bottom: 10px;">Travel Tips for Your Next Adventure</h3>
+              <p style="margin-bottom: 15px;">Discover essential tips to make your next trip unforgettable and hassle-free.</p>
+              <a href="#" class="btn btn-secondary" style="display: inline-block;">Read More</a>
+            </div>
+            
+            <div class="swiper-slide blog-slide" style="background-color: #f1f0f5; border-radius: 2px; padding: 20px; margin-right: 15px;">
+              <div class="blog-image" style="height: 150px; overflow: hidden; margin-bottom: 15px;">
+                <img src="./assets/blog/hidden-gems.webp" alt="Blog Post 2" style="width: 100%; height: 100%; object-fit: cover;">
+              </div>
+              <h3 style="margin-bottom: 10px;">Best Hidden Gems in Sri Lanka</h3>
+              <p style="margin-bottom: 15px; ">Explore these lesser-known destinations that will take your breath away.</p>
+              <a href="#" class="btn btn-secondary" style="display: inline-block;">Read More</a>
+            </div>
+            
+            <div class="swiper-slide blog-slide" style="background-color: #f1f0f5; border-radius: 2px; padding: 20px; margin-right: 15px;">
+              <div class="blog-image" style="height: 150px; overflow: hidden; margin-bottom: 15px;">
+                <img src="./assets/blog/sustainable-travel.webp" alt="Blog Post 3" style="width: 100%; height: 100%; object-fit: cover;">
+              </div>
+              <h3 style="margin-bottom: 10px;">Sustainable Travel Practices</h3>
+              <p style="margin-bottom: 15px;">Learn how to travel responsibly and reduce your environmental impact.</p>
+              <a href="#" class="btn btn-secondary" style="display: inline-block;">Read More</a>
+            </div>
+            
+            <div class="swiper-slide blog-slide" style="background-color: #f1f0f5; border-radius: 2px; padding: 20px; margin-right: 15px;">
+              <div class="blog-image" style="height: 150px; overflow: hidden; margin-bottom: 15px;">
+                <img src="./assets/blog/packing-hacks.webp" alt="Blog Post 4" style="width: 100%; height: 100%; object-fit: cover;">
+              </div>
+              <h3 style="margin-bottom: 10px;">Packing Hacks for Every Traveler</h3>
+              <p style="margin-bottom: 15px; ">Smart packing tips to save space and stay organized on your journeys.</p>
+              <a href="#" class="btn btn-secondary" style="display: inline-block;">Read More</a>
+            </div>
+          </div>
+        
+          
+          <!-- Add navigation buttons -->
+          <div class="swiper-button-next" style="color: white;"></div>
+          <div class="swiper-button-prev" style="color: white;"></div>
+        </div>
+      </div>
+    </div>
+
+    <!--blog mobile-->
+<div class="blog-mobile-view" style="width: 100%; background: var(--primary-color); padding: 40px 0;">
+
+  <!-- Modern Header -->
+  <div style="text-align: center; padding: 0 20px 20px;">
+    <h2 style="color: white; font-size: 1.8rem; letter-spacing: 3px; text-transform: uppercase;">Travel Stories</h2>
+    <div style="height: 2px; width: 40px; background: white; margin: 8px auto;"></div>
+  </div>
+
+  <!-- Vertical Stack with Overlay -->
+  <div style="position: relative; margin: 0 15px;">
+    
+    <!-- Vertical Image Stack -->
+    <div style="display: flex; flex-direction: column; gap: 8px;">
+      <div style="height: 120px; overflow: hidden; position: relative;">
+        <img src="./assets/blog/travel-tips.webp" style="width:100%; height:100%; object-fit:cover;">
+      </div>
+      <div style="height: 120px; overflow: hidden; position: relative;">
+        <img src="./assets/blog/hidden-gems.webp" style="width:100%; height:100%; object-fit:cover;">
+      </div>
+      <div style="height: 120px; overflow: hidden; position: relative;">
+        <img src="./assets/blog/sustainable-travel.webp" style="width:100%; height:100%; object-fit:cover;">
+      </div>
+      <div style="height: 120px; overflow: hidden; position: relative;">
+        <img src="./assets/blog/packing-hacks.webp" style="width:100%; height:100%; object-fit:cover;">
+      </div>
+    </div>
+    
+    <!-- Vertical Letter Overlay -->
+    <div style="position:absolute; top:0; left:0; right:0; bottom:0; 
+                display: flex; flex-direction: column; justify-content: center;
+                align-items: center; pointer-events: none;">
+      <div style="color: white; font-size: 4rem; font-weight: 800; line-height: 0.8;
+                  text-shadow: 0 0 15px rgb(0, 0, 0); mix-blend-mode:darken;">
+        <div style="display: block; transform: rotate(-3deg); margin-left: -15px;">B</div>
+        <div style="display: block; transform: rotate(2deg);">L</div>
+        <div style="display: block; transform: rotate(-1deg); margin-left: 10px;">O</div>
+        <div style="display: block; transform: rotate(4deg);">G</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Actual Blog Posts (hidden until interaction) -->
+  <div class="blog-content" style="display: none; padding: 15px;">
+    <!-- Will be populated dynamically -->
+  </div>
+
+  <!-- Interactive Prompt -->
+  <div style="text-align: center; color: white; margin-top: 20px; font-size: 0.9rem;
+              animation: pulse 2s infinite;">
+    ↓ Tap to explore articles ↓
+  </div>
+</div>
+  </div>
+</div>
+    </section>
+
+
+
+
+
+
+
+  </main>
+
+  <!-- Scripts -->
+
+  <script src="./js/gsap.min.js"></script>
+  <script src="./js/swiper-bundle.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // GSAP animation for mobile menu button
+      const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+      const lines = document.querySelectorAll('.line');
+      const cross1 = document.querySelector('.cross-line-1');
+      const cross2 = document.querySelector('.cross-line-2');
+
+      // Animation timeline
+      const tl = gsap.timeline({ paused: true });
+
+      // Hide regular lines and show cross lines
+      tl.to([lines[0], lines[2]], {
+        duration: 0.2,
+        opacity: 0,
+        ease: "power2.in"
+      })
+        .to([cross1, cross2], {
+          duration: 0.2,
+          opacity: 1,
+          scale: 1,
+          ease: "power2.out"
+        }, "<0.1");
+
+      // Toggle animation
+
+
+      // Slider functionality
+      // Slider functionality
+      const slides = document.querySelectorAll('.slide');
+      const sliderDots = document.querySelector('.slider-dots');
+      const prevArrow = document.querySelector('.prev-arrow');
+      const nextArrow = document.querySelector('.next-arrow');
+      const scrollIndicator = document.querySelector('.scroll-indicator');
+      const selectorItems = document.querySelectorAll('.selector-item');
+      let currentSlide = 0;
+      let slideInterval;
+      let currentCategory = 'images'; // Default category
+
+      // Initialize slider with dots for current category
+      function initSlider() {
+        // Filter slides by current category
+        const categorySlides = Array.from(slides).filter(slide =>
+          slide.dataset.category === currentCategory
+        );
+
+        // Create dots for current category
+        sliderDots.innerHTML = '';
+        categorySlides.forEach((slide, index) => {
+          const dot = document.createElement('div');
+          dot.className = 'dot';
+          dot.setAttribute('data-slide', index);
+          if (index === 0) dot.classList.add('active');
+          sliderDots.appendChild(dot);
+        });
+
+        // Show only slides from current category
+        slides.forEach(slide => {
+          slide.style.display = 'none';
+          if (slide.dataset.category === currentCategory) {
+            slide.style.display = 'block';
+          }
+        });
+
+        // Reset to first slide of category
+        currentSlide = 0;
+        showSlide(currentSlide);
+
+        // Start auto-sliding
+        resetInterval();
+      }
+
+      function showSlide(index) {
+        const categorySlides = Array.from(slides).filter(slide =>
+          slide.dataset.category === currentCategory
+        );
+
+        // Hide all slides in current category
+        categorySlides.forEach(slide => slide.classList.remove('active'));
+
+        // Show selected slide
+        if (categorySlides[index]) {
+          categorySlides[index].classList.add('active');
+        }
+
+        // Update dots
+        const dots = document.querySelectorAll('.dot');
+        dots.forEach(dot => dot.classList.remove('active'));
+        if (dots[index]) dots[index].classList.add('active');
+      }
+
+      function nextSlide() {
+        const categorySlides = Array.from(slides).filter(slide =>
+          slide.dataset.category === currentCategory
+        );
+        currentSlide = (currentSlide + 1) % categorySlides.length;
+        showSlide(currentSlide);
+      }
+
+      function prevSlide() {
+        const categorySlides = Array.from(slides).filter(slide =>
+          slide.dataset.category === currentCategory
+        );
+        currentSlide = (currentSlide - 1 + categorySlides.length) % categorySlides.length;
+        showSlide(currentSlide);
+      }
+
+      function resetInterval() {
+        clearInterval(slideInterval);
+        slideInterval = setInterval(nextSlide, 6000);
+      }
+
+      // Initialize with default category
+      initSlider();
+
+      // Event listeners for dots
+      sliderDots.addEventListener('click', function (e) {
+        if (e.target.classList.contains('dot')) {
+          const slideIndex = parseInt(e.target.getAttribute('data-slide'));
+          currentSlide = slideIndex;
+          showSlide(currentSlide);
+          resetInterval();
+        }
+      });
+
+      // Event listeners for arrows
+      prevArrow.addEventListener('click', function () {
+        prevSlide();
+        resetInterval();
+      });
+
+      nextArrow.addEventListener('click', function () {
+        nextSlide();
+        resetInterval();
+      });
+
+      // Keyboard navigation
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowLeft') {
+          prevSlide();
+          resetInterval();
+        } else if (e.key === 'ArrowRight') {
+          nextSlide();
+          resetInterval();
+        }
+      });
+
+      // Scroll indicator
+      scrollIndicator.addEventListener('click', function () {
+        window.scrollBy({
+          top: window.innerHeight - 100,
+          behavior: 'smooth'
+        });
+      });
+
+      // Category selector functionality
+      selectorItems.forEach(item => {
+        item.addEventListener('click', function () {
+          // Update active selector
+          selectorItems.forEach(i => i.classList.remove('active'));
+          this.classList.add('active');
+
+          // Change category
+          currentCategory = this.dataset.category;
+
+          // Reinitialize slider with new category
+          initSlider();
+        });
+      });
+
+      // Mobile menu functionality
+      const mobileMenu = document.querySelector('.mobile-menu');
+      const mobileMenuOverlay = document.querySelector('.mobile-menu-overlay');
+      const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+      const mobileBtnDropdown = document.querySelector('.mobile-btn-dropdown');
+
+      let isMobileView = window.innerWidth <= 991;
+
+      mobileMenuBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
+
+        if (isMobileView) {
+          mobileMenu.classList.toggle('active');
+          mobileMenuOverlay.classList.toggle('active');
+          document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+
+          if (mobileMenu.classList.contains('active')) {
+            tl.play();
+            mobileMenuBtn.classList.add('active');
+          } else {
+            tl.reverse();
+            mobileMenuBtn.classList.remove('active');
+          }
+        } else {
+          const isVisible = mobileBtnDropdown.style.display === 'block';
+
+          if (isVisible) {
+            gsap.to(mobileBtnDropdown, {
+              duration: 0.3,
+              opacity: 0,
+              y: -10,
+              onComplete: () => {
+                mobileBtnDropdown.style.display = 'none';
+              }
+            });
+            tl.reverse();
+            mobileMenuBtn.classList.remove('active');
+          } else {
+            mobileBtnDropdown.style.display = 'block';
+            gsap.fromTo(mobileBtnDropdown,
+              { opacity: 0, y: -10 },
+              { duration: 0.3, opacity: 1, y: 0 }
+            );
+            tl.play();
+            mobileMenuBtn.classList.add('active');
+          }
+        }
+      });
+
+      document.addEventListener('click', function () {
+        if (!isMobileView && mobileBtnDropdown.style.display === 'block') {
+          gsap.to(mobileBtnDropdown, {
+            duration: 0.3,
+            opacity: 0,
+            y: -10,
+            onComplete: () => {
+              mobileBtnDropdown.style.display = 'none';
+            }
+          });
+          tl.reverse();
+          mobileMenuBtn.classList.remove('active');
+        }
+      });
+
+      mobileBtnDropdown.addEventListener('click', function (e) {
+        e.stopPropagation();
+      });
+
+      function checkScreenSize() {
+        const newIsMobileView = window.innerWidth <= 991;
+
+        if (newIsMobileView !== isMobileView) {
+          isMobileView = newIsMobileView;
+
+          if (!isMobileView) {
+            mobileMenu.classList.remove('active');
+            mobileMenuOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+            tl.reverse();
+            mobileMenuBtn.classList.remove('active');
+          } else {
+            mobileBtnDropdown.style.display = 'none';
+          }
+        }
+      }
+
+      window.addEventListener('resize', checkScreenSize);
+
+      mobileMenuOverlay.addEventListener('click', function () {
+        mobileMenu.classList.remove('active');
+        mobileMenuOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+        tl.reverse();
+        mobileMenuBtn.classList.remove('active');
+      });
+
+      // Mobile dropdown animation
+      dropdownToggles.forEach(toggle => {
+        toggle.addEventListener('click', function (e) {
+          if (isMobileView) {
+            e.preventDefault();
+            const dropdown = this.nextElementSibling;
+            const parent = this.parentElement;
+            const isActive = parent.classList.contains('active');
+
+            if (isActive) {
+              gsap.to(dropdown, { height: 0, duration: 0.3, ease: "power2.in" });
+              parent.classList.remove('active');
+            } else {
+              gsap.set(dropdown, { height: 'auto' });
+              const height = dropdown.offsetHeight;
+              gsap.fromTo(dropdown,
+                { height: 0 },
+                { height: height, duration: 0.3, ease: "power2.out" }
+              );
+              parent.classList.add('active');
+            }
+          }
+        });
+      });
+
+      // Close mobile menu on nav-link click
+      document.querySelectorAll('.mobile-menu .nav-link').forEach(link => {
+        link.addEventListener('click', function (e) {
+          if (!this.classList.contains('dropdown-toggle')) {
+            mobileMenu.classList.remove('active');
+            mobileMenuOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+            tl.reverse();
+            mobileMenuBtn.classList.remove('active');
+          }
+        });
+      });
+
+
+
+    });
+
+    function toggleAccordion(element) {
+      const content = element.nextElementSibling;
+      const icon = element.querySelector('i');
+
+      if (content.style.maxHeight && content.style.maxHeight !== '0px') {
+        content.style.maxHeight = '0';
+        icon.style.transform = 'rotate(0deg)';
+      } else {
+        content.style.maxHeight = content.scrollHeight + 'px';
+        icon.style.transform = 'rotate(180deg)';
+      }
+    }
+
+    // Show/hide mobile timeline on screen size
+    function toggleMobileTimelineDisplay() {
+      const mobileTimeline = document.querySelector('.mobile-story-timeline');
+      if (window.innerWidth <= 768) {
+        mobileTimeline.style.display = 'block';
+      } else {
+        mobileTimeline.style.display = 'none';
+      }
+    }
+
+    // Run when the page loads and whenever it's resized
+    window.addEventListener('load', toggleMobileTimelineDisplay);
+    window.addEventListener('resize', toggleMobileTimelineDisplay);
+
+    const swiper = new Swiper('.swiper-container', {
+      slidesPerView: 'auto',
+      spaceBetween: 0,
+      freeMode: true,
+      grabCursor: true,
+      resistance: true,
+      resistanceRatio: 0.7,
+      lazy: {
+        loadPrevNext: true,     // preloads previous/next images for smoother UX
+        loadOnTransitionStart: true
+      },
+      preloadImages: false,      // this must be false for lazy loading to work
+      watchSlidesVisibility: true, // ensures Swiper knows which slides are in view
+    });
+
+
+    // Initialize Vertical Gallery Slider
+const gallerySwiper = new Swiper('.gallery-vertical-slider', {
+  direction: 'vertical',
+  slidesPerView: 2,
+  spaceBetween: 10,
+  freeMode:true,
+  mousewheel: true,
+  speed: 1000,
+  loop: false,
+  grabCursor:false,
+  lazy: {
+    loadPrevNext: true,
+    loadOnTransitionStart: true
+  },
+  autoplay: {
+    delay: 1000,
+    disableOnInteraction: false,
+  },
+  
+});
+
+
+   var blogHorizontalSlider = new Swiper('.blog-horizontal-slider', {
+      slidesPerView: 'auto',
+      spaceBetween: 10,
+      centeredSlides: false,
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+     
+    });
+
+  
+  </script>
+
+
+</body>
+
+</html>
